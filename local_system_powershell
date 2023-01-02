@@ -1,0 +1,44 @@
+# open powershell
+ // cd downloads
+  $ ssh -i "keypair_filename.pem" ec2-user@publicIP (any on the instance master/worker)
+ // execute command : yes
+
+# entered aws linux 2 AMI
+  $ sudo su  ( go to root )
+  $ yum get updates ( update packages if required)
+  $ yum install docker 
+  $ systemctl enable docker  // it will create symlink
+  $ systemctl restart docker
+  $ systemctl status docker
+ 
+# INSTALL kubeadm
+  $ cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kubelet kubeadm kubectl
+EO
+
+# k8s repofile pulled successfully
+          OR,
+  // refer to : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+   -> go to red-hat based distribution  (aws linux 2 AMI based on redhat distro) 
+   -> copy command for pulling the k8s repository
+  // to get repo file for k8s
+# check SElinux status : disabled
+  // if enalbled, use : $ sudo setenforce 0
+                        $ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config 
+  
+  $ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+    // kubeadm installed
+  $ sudo systemctl enable --now kubelet
+         OR,
+  $ systemctl enable kubelet
+  $ systemctl restart kubelet
+  $ kubeadm init
+     // cluster now ready
+  
+                       
