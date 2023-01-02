@@ -2,6 +2,10 @@
 # Config EC2 instance:- 2 instances(master and worker)
   // OS:Amazon Linux 2
   // instance type:- t2.medium (minimum reqirement 2vCPUs)
+# create key pair
+   // key pair type : RSA
+   // private key format : .pem (for openSSH)
+   // download key pair file
 # allow SSH traffic to : "Anywhere"
 # storage config: 20-30Gib
 # security group: traffic type : all
