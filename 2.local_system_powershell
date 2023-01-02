@@ -40,5 +40,4 @@ EO
   $ systemctl restart kubelet
   $ kubeadm init
      // cluster now ready
-  
                        
